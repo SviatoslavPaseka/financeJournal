@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Your monthly money</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+</head>
+<body style="width: 75%; margin: 0px auto;">
+	<div>
+		<h2>
+			Остаток: <span th:text="${inc_sum} - ${exp_sum}" />
+		</h2>
+	</div>
+	<div>
+		<p>Таблица рассходов</p>
+		<table class="table table-dark">
+			<thead>
+				<tr>
+					<th scope="col">Название рассхода</th>
+					<th scope="col">Сумма</th>
+					<th scope="col">Действия</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="e: ${exp}">
+					<td th:text="${e.getName()}" />
+					<td th:text="${e.getSum()}" />
+					<td>
+						<form th:action="@{/deleteLine/{name}(name=${e.getName()})}">
+							<button type="submit" class="btn btn-danger" name="">Удалить</button>
+						</form>
+					</td>
+				</tr>
+				<tr>
+					<td>Общая сумма рассходов</td>
+					<td th:text="${exp_sum}"></td>
+				</tr>
+			</tbody>
+		</table>
+		<form action="addExpensive">
+			<input type="text" name="name" placeholder="Название рассхода" /> <input
+				type="number" name="sum" placeholder="Сумма" />
+			<button type="submit" class="btn btn-success">Добавить</button>
+		</form>
+	</div>
+	<div>
+		<p>Таблица доходов</p>
+		<table class="table table-dark ">
+			<thead>
+				<tr>
+					<th scope="col">Название дохода</th>
+					<th scope="col">Сумма</th>
+					<th scope="col">Действия</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="i: ${inc}">
+					<td th:text="${i.getName()}" />
+					<td th:text="${i.getSum()}" />
+					<td>
+						<form th:action="@{/deleteLine/{name}(name=${i.getName()})}">
+							<button type="submit" class="btn btn-danger" name="">Удалить</button>
+						</form>
+					</td>
+				</tr>
+				<tr>
+					<td>Общая сумма доходов</td>
+					<td th:text="${inc_sum}"></td>
+				</tr>
+			</tbody>
+		</table>
+		<form action="addIncome">
+			<input type="text" name="name" placeholder="Название дохода" /> <input
+				type="number" name="sum" placeholder="Сумма" />
+			<button type="submit" class="btn btn-success">Добавить</button>
+		</form>
+	</div>
+
+</body>
+</html>
