@@ -22,11 +22,14 @@ public class MonthMoney{
 	private String name;
 	private Integer sum;
 	private Boolean isIncome;
-	public MonthMoney(String name, Integer sum, Boolean isIncome) {
+	private String this_month;
+	public MonthMoney(String name, Integer sum, Boolean isIncome, String this_month) {
 		this.name = name;
 		this.sum = sum;
 		this.isIncome = isIncome;
+		this.this_month = this_month;
 	}
+	
 	
 }
 

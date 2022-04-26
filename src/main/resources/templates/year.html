@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body style="width: 75%; margin: 0px auto; background-color: grey;">
+    <div>
+        <p th:each="table: ${tables}"><a th:text="${table}" href="/month"/></p>
+        
+    </div>
+</body>
+</html>

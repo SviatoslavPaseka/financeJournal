@@ -30,5 +30,14 @@ public class MonthServiceImpl implements MonthService{
 		// TODO Auto-generated method stub
 		return monthRepo.sumOfColumn(isIncome);
 	}
+	@Override
+	public List<String> getAllTables() {
+		return monthRepo.allTablesName();
+	}
+	@Override
+	public List<MonthMoney> findAll() {
+		// TODO Auto-generated method stub
+		return monthRepo.findAll();
+	}
 	
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import com.psm.financialJournal.model.MonthMoney;
 
 public interface MonthService {
+	List<MonthMoney> findAll();
 	List<MonthMoney> findByIsIncome(Boolean isIncome);
 
 	void save(MonthMoney monthMoney);
@@ -12,4 +13,6 @@ public interface MonthService {
 	void deleteByName(String name);
 	
 	Integer sumOfColumn(Boolean isIncome);
+	
+	List<String> getAllTables();
 }

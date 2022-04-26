@@ -9,7 +9,7 @@
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
 </head>
-<body style="width: 75%; margin: 0px auto;">
+<body style="width: 75%; margin: 0px auto; background-color: grey;">
 	<div>
 		<h2>
 			Остаток: <span th:text="${inc_sum} - ${exp_sum}" />
@@ -22,6 +22,7 @@
 				<tr>
 					<th scope="col">Название рассхода</th>
 					<th scope="col">Сумма</th>
+					<th scope="col">Месяц</th>
 					<th scope="col">Действия</th>
 				</tr>
 			</thead>
@@ -29,8 +30,9 @@
 				<tr th:each="e: ${exp}">
 					<td th:text="${e.getName()}" />
 					<td th:text="${e.getSum()}" />
+					<td th:text="${e.getThis_month()}" />
 					<td>
-						<form th:action="@{/deleteLine/{name}(name=${e.getName()})}">
+						<form th:action="@{/month/deleteLine/{name}(name=${e.getName()})}">
 							<button type="submit" class="btn btn-danger" name="">Удалить</button>
 						</form>
 					</td>
@@ -41,9 +43,9 @@
 				</tr>
 			</tbody>
 		</table>
-		<form action="addExpensive">
-			<input type="text" name="name" placeholder="Название рассхода" /> <input
-				type="number" name="sum" placeholder="Сумма" />
+		<form action="/month/addExpensive">
+			<input type="text" name="name" placeholder="Название рассхода" /> 
+			<input type="number" name="sum" placeholder="Сумма" />
 			<button type="submit" class="btn btn-success">Добавить</button>
 		</form>
 	</div>
@@ -54,6 +56,7 @@
 				<tr>
 					<th scope="col">Название дохода</th>
 					<th scope="col">Сумма</th>
+					<th scope="col">Месяц</th>
 					<th scope="col">Действия</th>
 				</tr>
 			</thead>
@@ -61,8 +64,9 @@
 				<tr th:each="i: ${inc}">
 					<td th:text="${i.getName()}" />
 					<td th:text="${i.getSum()}" />
+					<td th:text="${i.getThis_month()}" />
 					<td>
-						<form th:action="@{/deleteLine/{name}(name=${i.getName()})}">
+						<form th:action="@{/month/deleteLine/{name}(name=${i.getName()})}">
 							<button type="submit" class="btn btn-danger" name="">Удалить</button>
 						</form>
 					</td>
@@ -73,12 +77,11 @@
 				</tr>
 			</tbody>
 		</table>
-		<form action="addIncome">
-			<input type="text" name="name" placeholder="Название дохода" /> <input
-				type="number" name="sum" placeholder="Сумма" />
+		<form action="/month/addIncome">
+			<input type="text" name="name" placeholder="Название дохода" /> 
+			<input type="number" name="sum" placeholder="Сумма" />
 			<button type="submit" class="btn btn-success">Добавить</button>
 		</form>
 	</div>
-
 </body>
 </html>
