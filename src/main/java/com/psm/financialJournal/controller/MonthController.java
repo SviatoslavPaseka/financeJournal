@@ -12,46 +12,47 @@ import com.psm.financialJournal.model.MonthMoney;
 import com.psm.financialJournal.service.MonthService;
 
 @Controller
-@RequestMapping(value="/month")
+@RequestMapping(value="/month/{nameOfMonth}")
 public class MonthController {
 	@Autowired
 	private MonthService monthService;
 	@GetMapping
-	public String getMonth(Model model) {
-			Iterable<MonthMoney> exp = monthService.findByIsIncome(false);
+	public String getMonth(Model model, @PathVariable String nameOfMonth) {
+			model.addAttribute("nom", nameOfMonth);
+			Iterable<MonthMoney> exp = monthService.findByIsIncomeAndThis_month(false, nameOfMonth);
 			model.addAttribute("exp",exp);
-			Iterable<MonthMoney> inc = monthService.findByIsIncome(true);
+			Iterable<MonthMoney> inc = monthService.findByIsIncomeAndThis_month(true, nameOfMonth);
 			model.addAttribute("inc",inc);
-			if (!monthService.findByIsIncome(false).isEmpty()) {
-				model.addAttribute("exp_sum", monthService.sumOfColumn(false));
+			if (!monthService.findByIsIncomeAndThis_month(false, nameOfMonth).isEmpty()) {
+				model.addAttribute("exp_sum", monthService.sumOfColumn(false, nameOfMonth));
 			}else model.addAttribute("exp_sum", 0);
-			if (!monthService.findByIsIncome(true).isEmpty()) {
-				model.addAttribute("inc_sum", monthService.sumOfColumn(true));
+			if (!monthService.findByIsIncomeAndThis_month(true, nameOfMonth).isEmpty()) {
+				model.addAttribute("inc_sum", monthService.sumOfColumn(true, nameOfMonth));
 			}else model.addAttribute("inc_sum", 0);
 		
 		return "month";
 	}
 	@RequestMapping("/addExpensive")	
-	public String addExpensive(@RequestParam String name,@RequestParam Integer sum ,Model model) {
-		MonthMoney monthMoney = new MonthMoney(name, sum, false, "April");
+	public String addExpensive(@RequestParam String name,@RequestParam Integer sum, @PathVariable String nameOfMonth ,Model model) {
+		MonthMoney monthMoney = new MonthMoney(name, sum, false, nameOfMonth);
 		monthService.save(monthMoney);
 		
-		return "redirect:/month";
+		return "redirect:/month/{nameOfMonth}";
 	}
 	@RequestMapping("/addIncome")	
-	public String addIncome(@RequestParam String name,@RequestParam Integer sum ,Model model) {
-		MonthMoney monthMoney = new MonthMoney(name, sum, true, "April");
+	public String addIncome(@RequestParam String name,@RequestParam Integer sum, @PathVariable String nameOfMonth ,Model model) {
+		MonthMoney monthMoney = new MonthMoney(name, sum, true, nameOfMonth);
 		monthService.save(monthMoney);
 		
-		return "redirect:/month";
+		return "redirect:/month/{nameOfMonth}";
 	}
 	@SuppressWarnings("finally")
 	@RequestMapping("/deleteLine/{name}")
-	public String deleteLine(@PathVariable String name, Model model) {
+	public String deleteLine(@PathVariable String name, @PathVariable String nameOfMonth, Model model) {
 		try {
-			monthService.deleteByName(name);
+			monthService.deleteByName(name, nameOfMonth);
 		} finally {
-			return "redirect:/month";
+			return "redirect:/month/{nameOfMonth}";
 		}
 		
 	}

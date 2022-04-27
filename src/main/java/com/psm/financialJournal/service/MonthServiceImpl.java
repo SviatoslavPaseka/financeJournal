@@ -13,22 +13,22 @@ public class MonthServiceImpl implements MonthService{
 	@Autowired
 	private MonthRepo monthRepo;
 	@Override
-	public List<MonthMoney> findByIsIncome(Boolean isIncome) {
+	public List<MonthMoney> findByIsIncomeAndThis_month(Boolean isIncome, String nameMonth) {
 		// TODO Auto-generated method stub
-		return monthRepo.findByIsIncome(isIncome);
+		return monthRepo.findByIsIncomeAndNameMonth(isIncome, nameMonth);
 	}
 	@Override
 	public void save(MonthMoney monthMoney) {
 		monthRepo.save(monthMoney);
 	}
 	@Override
-	public void deleteByName(String name) {
-		monthRepo.deleteMonthMoneyByName(name);
+	public void deleteByName(String name, String nameMonth) {
+		monthRepo.deleteMonthMoneyByName(name, nameMonth);
 	}
 	@Override
-	public Integer sumOfColumn(Boolean isIncome) {
+	public Integer sumOfColumn(Boolean isIncome, String nameMonth) {
 		// TODO Auto-generated method stub
-		return monthRepo.sumOfColumn(isIncome);
+		return monthRepo.sumOfColumn(isIncome, nameMonth);
 	}
 	@Override
 	public List<String> getAllTables() {

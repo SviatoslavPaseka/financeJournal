@@ -9,11 +9,12 @@ import org.springframework.stereotype.Repository;
 import com.psm.financialJournal.model.MonthMoney;
 @Repository
 public interface MonthRepo extends JpaRepository<MonthMoney, Long>{
-	List<MonthMoney> findByIsIncome(Boolean isIncome);
-	@Query(value = "DELETE FROM month_money WHERE name =?1", nativeQuery = true)
-	void deleteMonthMoneyByName(String name);
-	@Query(value = "SELECT SUM(sum) FROM month_money WHERE is_income=?1", nativeQuery = true)
-	Integer sumOfColumn(Boolean isIncome);
+	List<MonthMoney> findByIsIncomeAndNameMonth(Boolean isIncome, String nameMonth);
+	@Query(value = "DELETE FROM month_money WHERE name =?1 AND name_month=?2", nativeQuery = true)
+	void deleteMonthMoneyByName(String name, String nameMonth);
+	@Query(value = "SELECT SUM(sum) FROM month_money WHERE is_income=?1 AND name_month=?2",
+		   nativeQuery = true)
+	Integer sumOfColumn(Boolean isIncome, String nameMonth);
 	@Query(value = "SELECT table_name "
 			+ "FROM information_schema.tables "
 			+ "WHERE table_schema='public' "

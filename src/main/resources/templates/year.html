@@ -6,8 +6,23 @@
 </head>
 <body style="width: 75%; margin: 0px auto; background-color: grey;">
     <div>
-        <p th:each="table: ${tables}"><a th:text="${table}" href="/month"/></p>
-        
+		<table>
+            <tbody>
+                <td><a href="/month">month</a></td>
+                <td><a href="/month/january">january</a></td>
+                <td><a href="/month/february">February</a></td>
+                <td><a href="/month/march">March</a></td>
+                <td><a href="/month/april">April</a></td>
+                <td><a href="/month/may">May</a></td>
+                <td><a href="/month/june">June</a></td>
+                <td><a href="/month/july">July</a></td>
+                <td><a href="/month/augest">Augest</a></td>
+                <td><a href="/month/september">September</a></td>
+                <td><a href="/month/october">October</a></td>
+                <td><a href="/month/november">November</a></td>
+                <td><a href="/month/december">December</a></td>
+            </tbody>
+        </table>
     </div>
 </body>
 </html>
