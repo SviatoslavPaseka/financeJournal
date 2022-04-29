@@ -33,16 +33,19 @@ public class MonthController {
 		return "month";
 	}
 	@RequestMapping("/addExpensive")	
-	public String addExpensive(@RequestParam String name,@RequestParam Integer sum, @PathVariable String nameOfMonth ,Model model) {
-		MonthMoney monthMoney = new MonthMoney(name, sum, false, nameOfMonth);
-		monthService.save(monthMoney);
-		
+	public String addExpensive(@RequestParam String name,@RequestParam String sum, @PathVariable String nameOfMonth ,Model model) {
+		if (name !="" || sum !="") {
+			MonthMoney monthMoney = new MonthMoney(name, Integer.parseInt(sum), false, nameOfMonth);
+			monthService.save(monthMoney);
+		}
 		return "redirect:/month/{nameOfMonth}";
 	}
 	@RequestMapping("/addIncome")	
-	public String addIncome(@RequestParam String name,@RequestParam Integer sum, @PathVariable String nameOfMonth ,Model model) {
-		MonthMoney monthMoney = new MonthMoney(name, sum, true, nameOfMonth);
-		monthService.save(monthMoney);
+	public String addIncome(@RequestParam String name,@RequestParam String sum, @PathVariable String nameOfMonth ,Model model) {
+		if (name !="" || sum !="") {
+			MonthMoney monthMoney = new MonthMoney(name, Integer.parseInt(sum), true, nameOfMonth);
+			monthService.save(monthMoney);
+		}
 		
 		return "redirect:/month/{nameOfMonth}";
 	}
@@ -56,5 +59,16 @@ public class MonthController {
 		}
 		
 	}
-	
+	@SuppressWarnings("finally")
+	@RequestMapping("/updateLine/{name}")
+	public String updateLine(@RequestParam String increase,@PathVariable String name, @PathVariable String nameOfMonth, Model model) {
+		try {
+				if (increase != "" || increase != null) {
+					monthService.updateSumForNameAndNameMonth(Integer.parseInt(increase), name, nameOfMonth);
+				}
+		} finally {
+			
+			return "redirect:/month/{nameOfMonth}";
+		}
+	}
 }

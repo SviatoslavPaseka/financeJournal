@@ -12,9 +12,12 @@ public interface MonthRepo extends JpaRepository<MonthMoney, Long>{
 	List<MonthMoney> findByIsIncomeAndNameMonth(Boolean isIncome, String nameMonth);
 	@Query(value = "DELETE FROM month_money WHERE name =?1 AND name_month=?2", nativeQuery = true)
 	void deleteMonthMoneyByName(String name, String nameMonth);
+	@Query(value = "UPDATE month_money SET sum=sum+?1 WHERE name=?2 AND name_month=?3", nativeQuery=true)
+	Integer updateSumByNameAndNameMonth(Integer increase, String name, String nameMonth);
 	@Query(value = "SELECT SUM(sum) FROM month_money WHERE is_income=?1 AND name_month=?2",
-		   nativeQuery = true)
+			   nativeQuery = true)
 	Integer sumOfColumn(Boolean isIncome, String nameMonth);
+	
 	@Query(value = "SELECT table_name "
 			+ "FROM information_schema.tables "
 			+ "WHERE table_schema='public' "

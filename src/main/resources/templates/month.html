@@ -8,15 +8,39 @@
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
+<style type="text/css">
+	body{
+		width: 90%;
+		margin: 0px auto;
+		background-color: grey;
+	}
+	.div1{    
+	    width: 45%;
+	    min-height: 150px;
+	    float: left;
+	}
+	.div2{    
+	    width: 45%;
+	    min-height: 150px;
+	  	margin-left: 55%;
+	}
+	.ftr1{
+	    clear: left;
+	    min-height: 50px;
+	}
+	.dif{
+		text-align: center;
+	}
+</style>
 </head>
-<body style="width: 75%; margin: 0px auto; background-color: grey;">
+<body>
 	<div>
-		<h2>
-			Остаток: <span th:text="${inc_sum} - ${exp_sum}" />
-		</h2>
+		<h1 class="dif">
+			Остаток: <span style="text-decoration: underline;" th:text="${inc_sum} - ${exp_sum}" />
+		</h1>
 	</div>
-	<div>
-		<p>Таблица рассходов</p>
+	<div class="div1">
+		<h2>Таблица рассходов</h2>
 		<table class="table table-dark">
 			<thead>
 				<tr>
@@ -33,6 +57,10 @@
 						<form th:action="@{/month/{nameOfMonth}/deleteLine/{name}(name=${e.getName()}, nameOfMonth=${nom})}">
 							<button type="submit" class="btn btn-danger" name="">Удалить</button>
 						</form>
+						<form th:action="@{/month/{nameOfMonth}/updateLine/{name}(name=${e.getName()}, nameOfMonth=${nom})}">
+							<input type="number" name="increase" placeholder="Увеличить на" />
+							<button type="submit" class="btn btn-primary" name="">Обновить</button>
+						</form>
 					</td>
 				</tr>
 				<tr>
@@ -47,8 +75,8 @@
 			<button type="submit" class="btn btn-success">Добавить</button>
 		</form>
 	</div>
-	<div>
-		<p>Таблица доходов</p>
+	<div class="div2">
+		<h2>Таблица доходов</h2>
 		<table class="table table-dark ">
 			<thead>
 				<tr>
@@ -65,6 +93,10 @@
 						<form th:action="@{/month/deleteLine/{name}(name=${i.getName()}, nameOfMonth=${nom})}">
 							<button type="submit" class="btn btn-danger" name="">Удалить</button>
 						</form>
+						<form th:action="@{/month/{nameOfMonth}/updateLine/{name}(name=${i.getName()}, nameOfMonth=${nom})}">
+							<input type="number" name="increase" placeholder="Увеличить на" />
+							<button type="submit" class="btn btn-primary" name="">Обновить</button>
+						</form>
 					</td>
 				</tr>
 				<tr>
@@ -79,5 +111,6 @@
 			<button type="submit" class="btn btn-success">Добавить</button>
 		</form>
 	</div>
+	<div class="ftr1"></div>
 </body>
 </html>

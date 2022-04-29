@@ -39,5 +39,11 @@ public class MonthServiceImpl implements MonthService{
 		// TODO Auto-generated method stub
 		return monthRepo.findAll();
 	}
+	@Override
+	public Integer updateSumForNameAndNameMonth(Integer increase, String name, String nameMonth) {
+		// TODO Auto-generated method stub
+		return monthRepo.updateSumByNameAndNameMonth(increase, name, nameMonth);
+	}
+	
 	
 }
